@@ -1,0 +1,16 @@
+
+MCS 
+templateMCS/3/1/m => Maker approve: [StatusField] is null or [StatusField] in ('11', '22') => set [StatusField]='44', [MakerField]=UserID#Nama#YYYYMMDDhhmmss
+templateMCS/3/1/c => Checker approve: [StatusField]='44' => set [StatusField]='01', [CheckerField]=UserID#Nama#YYYYMMDDhhmmss | reject => set [StatusField]=NULL
+templateMCS/3/1/s => Signer approve: [StatusField]='01' => set [StatusField]='10', [SignerField]=UserID#Nama#YYYYMMDDhhmmss | reject => set [StatusField]=NULL
+
+
+source| uniqid | col1 | col2 | col3 | check uncheck
+   1  |    87  | row1 | row1 | row1 | [x] [ ]
+   1  |    65  | row2 | row2 | row2 | [ ] [x]
+   2  |    56  | row3 | row3 | row3 | [x] [ ]
+[reject] [approve]
+
+contoh IDFitur3 endpoin 7 :
+update MasterBRIMatch SET SettlementStatus='44', Maker='90144963#Fendi Pratama#20210405143552' where ID=87
+update MasterBRI SET SettlementStatus='44', Maker='90144963#Fendi Pratama#20210405143552' where ID=56
